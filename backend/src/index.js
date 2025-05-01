@@ -27,7 +27,8 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-
+app.use(express.json({ limit: '50mb' }));  // Increased limit
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 

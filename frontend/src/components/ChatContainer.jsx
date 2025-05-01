@@ -50,8 +50,7 @@ const ChatContainer = () => {
     typingUsers,
     isMessagesLoading,
     clearTypingUserAfterDelay,
-    subscribeToGroupMessages,
-    unsubscribeFromGroupMessages
+   
   } = useChatStore();
 
   const { authUser } = useAuthStore();
@@ -63,28 +62,6 @@ const ChatContainer = () => {
     }
   };
 
-  useEffect(() => {
-    if (!selectedUser) return;
-  
-    const isGroup = selectedUser?.isGroup;
-  
-    getMessages(selectedUser._id);
-  
-    if (isGroup) {
-      subscribeToGroupMessages();
-    } else {
-      subscribeToMessages();
-    }
-  
-    return () => {
-      if (isGroup) {
-        unsubscribeFromGroupMessages();
-      } else {
-        unsubscribeFromMessages();
-      }
-    };
-  }, [selectedUser._id, selectedUser?.isGroup, getMessages, subscribeToMessages, unsubscribeFromMessages, subscribeToGroupMessages, unsubscribeFromGroupMessages, selectedUser]);
-  
 
   useEffect(() => {
     getMessages(selectedUser._id);
